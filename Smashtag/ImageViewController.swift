@@ -37,15 +37,13 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             scrollView.contentSize = imageView.frame.size
             scrollView.delegate = self
             scrollView.minimumZoomScale = setMaxZoomOut()
-            scrollView.maximumZoomScale = 1
+            scrollView.maximumZoomScale = setMaxZoomOut() * 3
             scrollView.zoomScale = setMaxZoomOut()
-            
         }
     }
-    
-    //calculate zoom to fit screen
+
     private func setMaxZoomOut() -> CGFloat{
-        return 0.5
+        return max(imageView.bounds.width / scrollView.bounds.width, imageView.bounds.height / scrollView.bounds.height)
     }
     
     
