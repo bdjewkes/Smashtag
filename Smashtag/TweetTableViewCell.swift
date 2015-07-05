@@ -16,7 +16,6 @@ class TweetTableViewCell: UITableViewCell {
     
     var tweet: Tweet? {
         didSet {
-            
             tweet?.userMentions
             updateUI()
         }

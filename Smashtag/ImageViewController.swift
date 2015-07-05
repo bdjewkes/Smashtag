@@ -18,18 +18,29 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                 imageView.image = image
                 imageView.sizeToFit()
                 scrollView?.contentSize = imageView.frame.size
-            } else {
-                if view.window != nil{
-                    fetchImage()
-                }
             }
         }
     }
     
-    var imageData: MediaItem?
+    var imageData: MediaItem? {
+        didSet {
+            if image == nil {
+                fetchImage(imageData!.url)
+            }
+        }
+    }
     
-    private func fetchImage(){
-        println("ImageViewController: fethchImage not yet implemented")
+    private func fetchImage(url: NSURL){
+        var fetchedImage: UIImage? = nil
+        let qos = Int(QOS_CLASS_USER_INITIATED.value)
+        dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
+            let imageData = NSData(contentsOfURL: url) //
+            dispatch_async(dispatch_get_main_queue()) {
+                if self.image != nil {
+                    self.image = UIImage(data: imageData!)
+                }
+            }
+        }
     }
     
     //MARK: ViewController Lifecycle
@@ -55,7 +66,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
 
     private func setMaxZoomOut() -> CGFloat{
-        return max(imageView.bounds.width / scrollView.bounds.width, imageView.bounds.height / scrollView.bounds.height)
+        return min(imageView.bounds.width / scrollView.bounds.width, imageView.bounds.height / scrollView.bounds.height)
     }
     
     

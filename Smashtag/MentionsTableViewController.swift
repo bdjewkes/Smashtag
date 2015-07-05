@@ -15,6 +15,7 @@ class MentionsTableViewController: UITableViewController {
     
     var tweet: Tweet?{
         didSet {
+            tweetImageData = [:]
             tweetMentions.append(tweetSection.Media(tweet!.media))
             tweetMentions.append(tweetSection.UserMentions(tweet!.userMentions))
             tweetMentions.append(tweetSection.Hashtags(tweet!.hashtags))
@@ -23,13 +24,9 @@ class MentionsTableViewController: UITableViewController {
                 var images = [UIImage?]()
                 for media in tweet!.media{
                     //Dispatch to another thread
-                    if let imageData = NSData(contentsOfURL: media.url){
-                        images.append(UIImage(data: imageData))
-                    } else{
-                        images.append(nil)
-                    }
+                    tweetImageData[media.url] = nil
+                    fetchTweetImage(media.url)
                 }
-                tweetImageData = images
             }
         }
     }
@@ -84,7 +81,11 @@ class MentionsTableViewController: UITableViewController {
             }
         }
     }
-    var tweetImageData = [UIImage?]()
+    var tweetImageData = [NSURL:UIImage?]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     //MARK: ViewController Lifecycle
     
@@ -100,6 +101,20 @@ class MentionsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    func fetchTweetImage(url: NSURL){
+        var fetchedImage: UIImage? = nil
+        let qos = Int(QOS_CLASS_USER_INITIATED.value)
+        dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
+            let imageData = NSData(contentsOfURL: url) //
+            dispatch_async(dispatch_get_main_queue()) {
+                if imageData != nil {
+                    fetchedImage = UIImage(data: imageData!)
+                    self.tweetImageData[url] = fetchedImage
+                }
+            }
+        }
+    }
+        
     // MARK: - Table view data source
 
     
@@ -118,7 +133,7 @@ class MentionsTableViewController: UITableViewController {
     struct Storyboard {
         static let IndexedKeywordCellReuseIdentifer = "IndexedKeywordMention"
         static let MediaMentionCellReuseIdentifier = "MediaMention"
-        static let IndexKeywordMentionDetailSegueIdentifier = "IndexKeywordMentionSegue"
+        static let IndexKeywordMentionDetailSegueIdentifier = "Unwind Segue"
         static let MediaMentionDetailSegueIdentifier = "MediaMentionSegue"
     }
     
@@ -132,7 +147,9 @@ class MentionsTableViewController: UITableViewController {
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.MediaMentionCellReuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
             if let imageData = data.mediaItems  {
-                cell.imageView!.image = tweetImageData[indexPath.row]
+                if let image = tweetImageData[tweet!.media[indexPath.row].url] {
+                    cell.imageView!.image = image
+                }
             }
             return cell
         }
@@ -140,10 +157,14 @@ class MentionsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if tweetMentions[indexPath.section].description == tweetSection.Media(tweet!.media).description {
-            if let image = tweetImageData[indexPath.row] {
+            let imagePath = tweetImageData[tweet!.media[indexPath.row].url]
+            if let imageData = imagePath  {
                 //set row height to the image height, or the largest height that fits in the tableView's width bound
                 //Currently using an arbirtrary value to space right side of the image off the edge of the tableView. Find a constant
-                return min(image.size.height, (tableView.bounds.width - 25) / CGFloat(tweet!.media[indexPath.row].aspectRatio))
+                if let image = imageData {
+                    return min(image.size.height, (tableView.bounds.width - 25) / CGFloat(tweet!.media[indexPath.row].aspectRatio))
+
+                }
             }
         }
         return UITableViewAutomaticDimension
@@ -164,11 +185,14 @@ class MentionsTableViewController: UITableViewController {
                     UIApplication.sharedApplication().openURL(NSURL(string: tweet!.urls[indexPath!.row].keyword)!)
                 } else {
                     //All other cases go to a TweetTableViewController
-                    //This should be an unwind to the root view controller instead
                     if let navCon = destination as? UINavigationController {
                         if let destination = navCon.visibleViewController as? TweetTableViewController
                         {
                             destination.searchText = cell.textLabel!.text
+                        }
+                    } else {
+                        if let ttvc = destination as? TweetTableViewController{
+                            ttvc.searchText = cell.textLabel!.text
                         }
                     }
                 }

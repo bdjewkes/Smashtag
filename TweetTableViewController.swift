@@ -14,14 +14,29 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     var tweets = [[Tweet]]()
     
-    var searchText: String? = "#lovewins" {
+    var searchText: String? = "lovewins" {
         didSet {
+            if let search = searchText {
+                searchHistory.append(search)
+            }
+            searchTextField.text = searchText
             lastSuccessfulRequest = nil
             tweets.removeAll()
             tableView.reloadData()
             refresh()
         }
     }
+    
+    var searchHistory = [String]() {
+        didSet {
+            if searchHistory.count > 100 {
+                searchHistory.removeAtIndex(0)
+            }
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(searchHistory, forKey: "searchHistory")
+        }
+    }
+    
     
     
     
@@ -122,8 +137,11 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    @IBAction func unwindToTweetTableViewController(segue: UIStoryboardSegue){
+        
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var destination = segue.destinationViewController as? UIViewController
         if let navCon = destination as? UINavigationController {
