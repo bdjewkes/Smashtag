@@ -10,6 +10,8 @@ import UIKit
 
 class ImageViewController: UIViewController, UIScrollViewDelegate {
     
+    //MARK: Model
+    
     var image: UIImage? = nil {
         didSet {
             if let image = self.image{
@@ -30,7 +32,17 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         println("ImageViewController: fethchImage not yet implemented")
     }
     
+    //MARK: ViewController Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        scrollView.addSubview(imageView)
+    }
+    
     private var imageView = UIImageView()
+    
+    
+    //MARK: ScrollView Configuration
     
     @IBOutlet weak var scrollView: UIScrollView!{
         didSet{
@@ -51,8 +63,5 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         return imageView
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        scrollView.addSubview(imageView)
-    }
+   
 }

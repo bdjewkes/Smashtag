@@ -9,6 +9,9 @@
 import UIKit
 
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
+    
+    // MARK: Model
+    
     var tweets = [[Tweet]]()
     
     var searchText: String? = "#lovewins" {
@@ -19,6 +22,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             refresh()
         }
     }
+    
+    
     
     // MARK: View Controller Lifecycle
     

@@ -10,6 +10,9 @@ import UIKit
 
 class MentionsTableViewController: UITableViewController {
 
+    
+    //MARK: Model
+    
     var tweet: Tweet?{
         didSet {
             tweetMentions.append(tweetSection.Media(tweet!.media))
@@ -83,7 +86,7 @@ class MentionsTableViewController: UITableViewController {
     }
     var tweetImageData = [UIImage?]()
     
-    
+    //MARK: ViewController Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,11 +98,6 @@ class MentionsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -161,11 +159,12 @@ class MentionsTableViewController: UITableViewController {
             let indexPath = tableView.indexPathForCell(cell)
             //IndexedKeyword segues: Hashtags, Usernames, and web addresses
             if segue.identifier == Storyboard.IndexKeywordMentionDetailSegueIdentifier{
-                //Open web addresses in the browser
+                //Open web addresses in the browser, possible refator to segue to a UIWebView
                 if tweetMentions[indexPath!.section].description == tweetSection.URLs(tweet!.urls).description{
                     UIApplication.sharedApplication().openURL(NSURL(string: tweet!.urls[indexPath!.row].keyword)!)
                 } else {
                     //All other cases go to a TweetTableViewController
+                    //This should be an unwind to the root view controller instead
                     if let navCon = destination as? UINavigationController {
                         if let destination = navCon.visibleViewController as? TweetTableViewController
                         {
