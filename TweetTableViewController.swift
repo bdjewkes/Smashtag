@@ -14,7 +14,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     var tweets = [[Tweet]]()
     
-    var searchText: String? = "lovewins" {
+    var searchText: String? = "#lovewins" {
         didSet {
             if let search = searchText {
                 searchHistory.append(search)
@@ -44,6 +44,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let history = defaults.stringArrayForKey("searchHistory"){
+            searchHistory = history as! [String]
+        }
         refresh()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension

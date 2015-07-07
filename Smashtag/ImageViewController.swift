@@ -69,6 +69,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         return min(imageView.bounds.width / scrollView.bounds.width, imageView.bounds.height / scrollView.bounds.height)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.zoomScale = setMaxZoomOut()
+    }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView

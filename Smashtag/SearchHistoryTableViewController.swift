@@ -12,6 +12,14 @@ class SearchHistoryTableViewController: UITableViewController {
 
     var searchHistory = [String]()
     
+    
+    
+    //MARK: - ViewController Lifecycle
+    
+    override func viewDidLoad(){
+        super.viewDidLoad()
+    }
+    
     override func viewWillAppear(animated: Bool) {
         let defaults = NSUserDefaults.standardUserDefaults()
         if let history = defaults.stringArrayForKey("searchHistory"){

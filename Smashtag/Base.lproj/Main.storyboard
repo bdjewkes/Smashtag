@@ -5,10 +5,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Tweet Table View Controller-->
+        <!--Twitter Search-->
         <scene sceneID="ld0-cg-b91">
             <objects>
-                <tableViewController id="OUK-0s-I7Q" customClass="TweetTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Twitter Search" id="OUK-0s-I7Q" customClass="TweetTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="181" sectionHeaderHeight="22" sectionFooterHeight="22" id="Vci-om-hJi">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,7 +25,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ygh-8I-55u" id="0Xu-D1-WVl">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCk-yf-Up8">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCk-yf-Up8">
                                             <rect key="frame" x="64" y="8" width="528" height="19.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -38,8 +38,8 @@
                                                 <constraint firstAttribute="height" constant="48" id="sDT-ZT-1Cl"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gku-sp-M3S">
-                                            <rect key="frame" x="64" y="35.5" width="528" height="137"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Tweet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gku-sp-M3S">
+                                            <rect key="frame" x="64" y="35" width="528" height="137"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -91,10 +91,10 @@
             </objects>
             <point key="canvasLocation" x="1226" y="-258"/>
         </scene>
-        <!--Mentions Table View Controller-->
+        <!--Mentions-->
         <scene sceneID="8y4-fx-kbq">
             <objects>
-                <tableViewController id="trX-Qa-CtD" customClass="MentionsTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Mentions" id="trX-Qa-CtD" customClass="MentionsTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="V56-MB-jRs">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -147,11 +147,11 @@
             </objects>
             <point key="canvasLocation" x="1920" y="558"/>
         </scene>
-        <!--Item-->
+        <!--Twitter Search-->
         <scene sceneID="gs1-ya-JQS">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AJd-zh-ACK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="q18-ys-0hB"/>
+                    <tabBarItem key="tabBarItem" title="Twitter Search" id="q18-ys-0hB"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Azl-LG-ODq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -166,10 +166,10 @@
             </objects>
             <point key="canvasLocation" x="503" y="-258"/>
         </scene>
-        <!--Image View Controller-->
+        <!--Image-->
         <scene sceneID="h78-9n-abB">
             <objects>
-                <viewController id="0Mi-VM-thK" customClass="ImageViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Image" id="0Mi-VM-thK" customClass="ImageViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PZJ-Gm-uzt"/>
                         <viewControllerLayoutGuide type="bottom" id="02N-De-xVr"/>
@@ -236,10 +236,10 @@
             </objects>
             <point key="canvasLocation" x="-369" y="-621"/>
         </scene>
-        <!--Search History Table View Controller-->
+        <!--Search History-->
         <scene sceneID="B0D-gU-Ecl">
             <objects>
-                <tableViewController id="nAH-lN-AWp" customClass="SearchHistoryTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Search History" id="nAH-lN-AWp" customClass="SearchHistoryTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rDq-pY-B1C">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -268,7 +268,7 @@
                             <outlet property="delegate" destination="nAH-lN-AWp" id="Ypm-RX-7iB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="APU-s1-n24"/>
+                    <navigationItem key="navigationItem" title="Search History" id="APU-s1-n24"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ndt-lg-z3j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -292,11 +292,11 @@
             </objects>
             <point key="canvasLocation" x="2669" y="558"/>
         </scene>
-        <!--Item-->
+        <!--Search History-->
         <scene sceneID="RIO-8r-xCq">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GAx-IG-Kyn" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="kzh-wh-xge"/>
+                <navigationController title="Search History" automaticallyAdjustsScrollViewInsets="NO" id="GAx-IG-Kyn" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search History" id="kzh-wh-xge"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6ca-Yt-2Vd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
